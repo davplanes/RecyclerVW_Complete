@@ -2,6 +2,7 @@ package com.example.recyclervw_complete;
 
 import android.os.Bundle;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +18,9 @@ import com.example.model.Toys;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvToys;
-    private Toys toys;
+    private Toys         toys;
     private ToyAdapter   adapter;
+    private Toolbar      toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeviews() {
-        rvToys = findViewById(R.id.rvToys);
+        rvToys  = findViewById(R.id.rvToys);
+        toolbar = findViewById(R.id.toolbar);
     }
 }
