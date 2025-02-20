@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.model.Toy;
 import com.example.model.Toys;
@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeviews() {
         rvToys  = findViewById(R.id.rvToys);
+
         toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -83,20 +85,22 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-/*
+
     @Override
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
-        if (id == R.id.mnuCategories){
+        if (id == R.id.menu_categories){
+            Toast.makeText(this, "Categories", Toast.LENGTH_SHORT).show();
             return true;
         }
-        else if (id == R.id.mnuExit){
+        else if (id == R.id.menu_exit){
+            Toast.makeText(this, "Exit", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    */
+
 }
