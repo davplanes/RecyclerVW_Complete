@@ -1,5 +1,6 @@
 package com.example.recyclervw_complete;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private Toys         toys;
     private ToyAdapter   adapter;
     private Toolbar      toolbar;
+
+    private Intent       intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_categories){
-            Toast.makeText(this, "Categories", Toast.LENGTH_SHORT).show();
+            intent = new Intent(MainActivity.this, CategoriesActivity.class);
+            startActivity(intent);
             return true;
         }
         else if (id == R.id.menu_exit){
