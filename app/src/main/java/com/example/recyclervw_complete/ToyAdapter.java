@@ -16,7 +16,7 @@ import com.example.model.Toys;
 public class ToyAdapter extends RecyclerView.Adapter<ToyAdapter.ToyViewHolder>{
 
     private Context context;
-    private Toys toys;
+    private Toys    toys;
     private int     single_layout;
 
     public interface OnItemClickListener{
