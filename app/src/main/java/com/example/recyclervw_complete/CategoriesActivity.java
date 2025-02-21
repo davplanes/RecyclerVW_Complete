@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.Categories;
@@ -14,8 +15,9 @@ import com.example.model.Category;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    private RecyclerView rvCategories;
-    private Categories categories;
+    private RecyclerView    rvCategories;
+    private Categories      categories;
+    private CategoryAdapter cAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +30,16 @@ public class CategoriesActivity extends AppCompatActivity {
             return insets;
         });
 
-        intializeViews();
+        initializeViews();
 
         getAllCategories();
+        setRecyclerView();
+    }
+
+    private void setRecyclerView() {
+        cAdapter = new CategoryAdapter(this, categories, R.layout.category_single_layout);
+        rvCategories.setAdapter(cAdapter);
+        rvCategories.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void getAllCategories() {
@@ -41,10 +50,10 @@ public class CategoriesActivity extends AppCompatActivity {
         categories.add(new Category("Card Games"));
         categories.add(new Category("Legos"));
         categories.add(new Category("Action figures"));
-        categories.add(new Category("Pokimons"));
+        categories.add(new Category("Pokemons"));
     }
 
-    private void intializeViews() {
+    private void initializeViews() {
         rvCategories = findViewById(R.id.rvCategories);
     }
 }

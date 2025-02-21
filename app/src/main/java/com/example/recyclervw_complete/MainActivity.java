@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvToys;
     private Toys         toys;
-    private ToyAdapter   adapter;
+    private ToyAdapter   tAdapter;
     private Toolbar      toolbar;
 
     private Intent       intent;
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        adapter = new ToyAdapter(this, toys, R.layout.toy_single_layout, listener, longlistener);
-        rvToys.setAdapter(adapter);
+        tAdapter = new ToyAdapter(this, toys, R.layout.toy_single_layout, listener, longlistener);
+        rvToys.setAdapter(tAdapter);
         rvToys.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.menu_exit){
-            Toast.makeText(this, "Exit", Toast.LENGTH_SHORT).show();
+            finish();
+            System.exit(0);
             return true;
         }
 
