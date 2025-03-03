@@ -47,6 +47,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return (categories == null) ? 0 : categories.size();
     }
 
+    public void setToyCategories(Categories categories) {
+        this.categories = categories;
+        notifyDataSetChanged();
+    }
+
     public static class CategoryViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView ivCategory;
