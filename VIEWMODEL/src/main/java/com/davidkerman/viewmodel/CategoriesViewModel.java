@@ -1,5 +1,6 @@
 package com.davidkerman.viewmodel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -15,5 +16,9 @@ public class CategoriesViewModel extends ViewModel {
 
         categoriesMutableLiveData = new MutableLiveData<>();
         categoriesMutableLiveData.setValue(categories);
+    }
+
+    public MutableLiveData<Categories> getCategoriesMutableLiveData() {
+        return categoriesMutableLiveData;
     }
 }

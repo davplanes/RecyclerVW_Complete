@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.davidkerman.viewmodel.CategoriesViewModel;
 import com.example.model.Categories;
 import com.example.model.Category;
 
@@ -18,6 +20,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private RecyclerView    rvCategories;
     private Categories      categories;
     private CategoryAdapter cAdapter;
+    private CategoriesViewModel categoriesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +34,29 @@ public class CategoriesActivity extends AppCompatActivity {
         });
 
         initializeViews();
-
-        getAllCategories();
+        setupViewModel();
+        //getAllCategories();
         setRecyclerView();
     }
 
+    private void setupViewModel() {
+        categoriesViewModel = new
+                ViewModelProvider(this).get(CategoriesViewModel.class);
+
+        categoriesViewModel.getCategoriesMutableLiveData()
+                .observe(this, Categories -> {
+                    cAdapter.setToyCategories(Categories);
+                });
+    }
+
+
     private void setRecyclerView() {
-        cAdapter = new CategoryAdapter(this, categories, R.layout.category_single_layout);
+        cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout);
         rvCategories.setAdapter(cAdapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void getAllCategories() {
+    /*private void getAllCategories() {
         categories = new Categories();
 
         categories.add(new Category("Puzzles"));
@@ -51,7 +65,7 @@ public class CategoriesActivity extends AppCompatActivity {
         categories.add(new Category("Legos"));
         categories.add(new Category("Action figures"));
         categories.add(new Category("Pokemons"));
-    }
+    }*/
 
     private void initializeViews() {
         rvCategories = findViewById(R.id.rvCategories);
