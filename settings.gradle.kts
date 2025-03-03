@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "RecyclerVW_Complete"
 include(":app")
 include(":MODEL")
+include(":VIEWMODEL")
