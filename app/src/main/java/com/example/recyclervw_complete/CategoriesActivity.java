@@ -27,7 +27,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CategoriesActivity extends AppCompatActivity {
 
     private RecyclerView         rvCategories;
-    //private Categories         categories;
     private CategoryAdapter      cAdapter;
     private CategoriesViewModel  categoriesViewModel;
     private ConstraintLayout     inputCL;
@@ -49,7 +48,6 @@ public class CategoriesActivity extends AppCompatActivity {
 
         initializeViews();
         setupViewModel();
-        //getAllCategories();
         setRecyclerView();
     }
 
@@ -72,25 +70,23 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
-
     private void setRecyclerView() {
+        CategoryAdapter.OnItemLongClickListener longlistener = new CategoryAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(Category category) {
+                int position = categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category);
+                if (position >= 0){
+                    categoriesViewModel.delete(position);
+                    return true;
+                }
+                return false;
+            }
+        };
 
-
-        cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout);
+        cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout, longlistener);
         rvCategories.setAdapter(cAdapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
     }
-
-    /*private void getAllCategories() {
-        categories = new Categories();
-
-        categories.add(new Category("Puzzles"));
-        categories.add(new Category("Board Games"));
-        categories.add(new Category("Card Games"));
-        categories.add(new Category("Legos"));
-        categories.add(new Category("Action figures"));
-        categories.add(new Category("Pokemons"));
-    }*/
 
     private void initializeViews() {
         rvCategories = findViewById(R.id.rvCategories);

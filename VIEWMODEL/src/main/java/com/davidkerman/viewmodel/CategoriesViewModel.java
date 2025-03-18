@@ -39,10 +39,10 @@ public class CategoriesViewModel extends ViewModel {
             successLivedata.setValue(false);
     }
 
-
-
-    public void remove(Category categoryToRemove) {
-        categories.removeIf(Category -> Category.getName().equals(categoryToRemove.getName()));
-        categoriesMutableLiveData.setValue(categories);
+    public void delete(int position){
+        if(categories != null){
+            categories.remove(position);
+            categoriesMutableLiveData.setValue(categories);
+        }
     }
 }
