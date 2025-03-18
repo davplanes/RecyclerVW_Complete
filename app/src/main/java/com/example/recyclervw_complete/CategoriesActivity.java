@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,13 @@ public class CategoriesActivity extends AppCompatActivity {
                 .observe(this, Categories -> {
                     cAdapter.setToyCategories(Categories);
                 });
+
+        categoriesViewModel.getSuccessLivedata().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                Toast.makeText(CategoriesActivity.this, "Already exits", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -113,12 +121,8 @@ public class CategoriesActivity extends AppCompatActivity {
 
                 else{
                     Category category_to_add = new Category(categoryinput.getText().toString());
-                    if (categoriesViewModel.IsIn(category_to_add)){
-                        Toast.makeText(CategoriesActivity.this, "Such category already exists", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        categoriesViewModel.add(category_to_add);
-                    }
+                    categoriesViewModel.add(category_to_add);
+
                 }
             }
         });

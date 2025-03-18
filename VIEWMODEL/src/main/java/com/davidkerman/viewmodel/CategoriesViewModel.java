@@ -10,6 +10,7 @@ import com.example.model.Category;
 public class CategoriesViewModel extends ViewModel {
     private Categories categories;
     private MutableLiveData<Categories> categoriesMutableLiveData;
+    private MutableLiveData<Boolean> successLivedata;
 
     public CategoriesViewModel(){
         categories = new Categories();
@@ -17,20 +18,28 @@ public class CategoriesViewModel extends ViewModel {
 
         categoriesMutableLiveData = new MutableLiveData<>();
         categoriesMutableLiveData.setValue(categories);
+
+        successLivedata = new MutableLiveData<>();
     }
 
     public MutableLiveData<Categories> getCategoriesMutableLiveData() {
         return categoriesMutableLiveData;
     }
 
-    public void add(Category categoryToAdd) {
-        categories.add(categoryToAdd);
-        categoriesMutableLiveData.setValue(categories);
+    public MutableLiveData<Boolean> getSuccessLivedata(){
+        return successLivedata;
     }
 
-    public boolean IsIn(Category category){
-        return categories.stream().anyMatch(Category -> Category.getName().equals(category.getName()));
+    public void add(Category categoryToAdd) {
+        if (!categories.IsIn(categoryToAdd)) {
+            categories.add(categoryToAdd);
+            categoriesMutableLiveData.setValue(categories);
+        }
+        else
+            successLivedata.setValue(false);
     }
+
+
 
     public void remove(Category categoryToRemove) {
         categories.removeIf(Category -> Category.getName().equals(categoryToRemove.getName()));
