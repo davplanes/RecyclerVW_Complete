@@ -1,8 +1,9 @@
 package com.example.model;
 
+import java.util.Objects;
+
 public class Category extends BaseEntity{
     private String name;
-    private String picture;
 
     public Category(String name){
         this.name = name;
@@ -16,8 +17,13 @@ public class Category extends BaseEntity{
         this.name = name;
     }
 
-    public String getPicture() { return picture; }
-
-    public void setPicture(String picture) { this.picture = picture; }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Category category = (Category) o;
+        return Objects.equals(name, category.name);
+    }
 
 }
