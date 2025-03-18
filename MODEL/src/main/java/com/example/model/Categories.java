@@ -9,4 +9,6 @@ public class Categories extends BaseList<Category, Categories>{
         add(new Category("Action figures"));
         add(new Category("Pokemons"));
     }
+
+
 }

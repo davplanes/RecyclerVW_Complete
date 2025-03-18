@@ -3,6 +3,10 @@ package com.example.recyclervw_complete;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +26,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CategoriesActivity extends AppCompatActivity {
 
     private RecyclerView         rvCategories;
-    //private Categories           categories;
+    //private Categories         categories;
     private CategoryAdapter      cAdapter;
     private CategoriesViewModel  categoriesViewModel;
     private ConstraintLayout     inputCL;
     private FloatingActionButton fButton;
+    private EditText             categoryinput;
+    private ImageView            vButton;
+    private ImageView            xButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private void initializeViews() {
         rvCategories = findViewById(R.id.rvCategories);
+        categoryinput = findViewById(R.id.categoryinput);
+        vButton = findViewById(R.id.vbutton);
+        xButton = findViewById(R.id.xbutton);
         fButton = findViewById(R.id.fButton);
         inputCL = findViewById(R.id.inputCL);
 
@@ -87,9 +97,46 @@ public class CategoriesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (inputCL.getVisibility() == View.VISIBLE){
                     inputCL.setVisibility(View.GONE);
+                    categoryinput.setText("");
                 }
                 else{
                     inputCL.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        vButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (categoryinput.getText().toString().isEmpty())
+                    Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
+
+                else{
+                    Category category_to_add = new Category(categoryinput.getText().toString());
+                    if (categoriesViewModel.IsIn(category_to_add)){
+                        Toast.makeText(CategoriesActivity.this, "Such category already exists", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        categoriesViewModel.add(category_to_add);
+                    }
+                }
+            }
+        });
+
+        xButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Category category_to_remove = new Category(categoryinput.getText().toString());
+
+                if (categoryinput.getText().toString().isEmpty())
+                    Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
+
+                else if (!categoriesViewModel.IsIn(category_to_remove)){
+                    Toast.makeText(CategoriesActivity.this, "Please enter a category that already exists in order to remove it", Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    categoriesViewModel.remove(category_to_remove);
                 }
             }
         });
