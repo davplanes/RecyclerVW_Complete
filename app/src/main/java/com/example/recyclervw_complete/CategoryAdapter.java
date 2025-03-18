@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.Categories;
 import com.example.model.Category;
+import com.example.model.Toy;
 
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
@@ -20,10 +21,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private Categories categories;
     private int        single_layout;
 
-    public CategoryAdapter(Context context, Categories categories, int single_layout) {
+    public interface OnItemLongClickListener{
+        public boolean onItemLongClicked(Category category);
+    }
+
+    private CategoryAdapter.OnItemLongClickListener longlistener;
+
+    public CategoryAdapter(Context context, Categories categories, int single_layout, OnItemLongClickListener longlistener) {
         this.context = context;
         this.categories = categories;
         this.single_layout = single_layout;
+        this.longlistener = longlistener;
     }
 
     @NonNull
@@ -64,9 +72,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             tvCategory = itemView.findViewById(R.id.tvCategory);
         }
 
-        public void bind(Category category){
+        public void bind(Category category, OnItemLongClickListener longlistener){
             //ivCategory.setImageBitmap(category.getPicture())
             tvCategory.setText(category.getName());
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    longlistener.onItemLongClicked(category);
+                    return true;
+                }
+            });
         }
     }
 }

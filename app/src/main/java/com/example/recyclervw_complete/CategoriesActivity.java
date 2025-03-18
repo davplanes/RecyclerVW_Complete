@@ -65,13 +65,17 @@ public class CategoriesActivity extends AppCompatActivity {
         categoriesViewModel.getSuccessLivedata().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                Toast.makeText(CategoriesActivity.this, "Already exits", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoriesActivity.this, "This category already exists", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
 
     private void setRecyclerView() {
+
+
         cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout);
         rvCategories.setAdapter(cAdapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
@@ -103,13 +107,7 @@ public class CategoriesActivity extends AppCompatActivity {
         fButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inputCL.getVisibility() == View.VISIBLE){
-                    inputCL.setVisibility(View.GONE);
-                    categoryinput.setText("");
-                }
-                else{
-                    inputCL.setVisibility(View.VISIBLE);
-                }
+                inputCL.setVisibility(View.VISIBLE);
             }
         });
 
@@ -130,18 +128,8 @@ public class CategoriesActivity extends AppCompatActivity {
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Category category_to_remove = new Category(categoryinput.getText().toString());
-
-                if (categoryinput.getText().toString().isEmpty())
-                    Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
-
-                else if (!categoriesViewModel.IsIn(category_to_remove)){
-                    Toast.makeText(CategoriesActivity.this, "Please enter a category that already exists in order to remove it", Toast.LENGTH_SHORT).show();
-                }
-
-                else{
-                    categoriesViewModel.remove(category_to_remove);
-                }
+                categoryinput.setText("");
+                inputCL.setVisibility(View.GONE);
             }
         });
     }
