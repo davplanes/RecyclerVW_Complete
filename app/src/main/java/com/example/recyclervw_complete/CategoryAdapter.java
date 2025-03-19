@@ -20,16 +20,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private Categories categories;
     private int        single_layout;
 
+    public interface OnItemClickListener{
+        public void onItemClicked(Category category);
+    }
+
     public interface OnItemLongClickListener{
         public boolean onItemLongClicked(Category category);
     }
 
+    private CategoryAdapter.OnItemClickListener listener;
     private CategoryAdapter.OnItemLongClickListener longlistener;
 
-    public CategoryAdapter(Context context, Categories categories, int single_layout, OnItemLongClickListener longlistener) {
+    public CategoryAdapter(Context context, Categories categories, int single_layout, OnItemClickListener listener, OnItemLongClickListener longlistener) {
         this.context = context;
         this.categories = categories;
         this.single_layout = single_layout;
+        this.listener = listener;
         this.longlistener = longlistener;
     }
 
@@ -45,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Category category = categories.get(position);
 
         if(category != null){
-            holder.bind(category, longlistener);
+            holder.bind(category, listener, longlistener);
         }
     }
 
@@ -71,8 +77,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             tvCategory = itemView.findViewById(R.id.tvCategory);
         }
 
-        public void bind(Category category, OnItemLongClickListener longlistener){
+        public void bind(Category category, OnItemClickListener listener, OnItemLongClickListener longlistener){
             tvCategory.setText(category.getName());
+
+            itemView.setOnClickListener(v -> {
+                listener.onItemClicked(category);
+            });
 
             itemView.setOnLongClickListener(v -> {
                 longlistener.onItemLongClicked(category);

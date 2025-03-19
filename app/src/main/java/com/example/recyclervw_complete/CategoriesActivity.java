@@ -67,10 +67,25 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
+        categoriesViewModel.getIseditingLivedata().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
 
+            }
+        });
     }
 
     private void setRecyclerView() {
+        CategoryAdapter.OnItemClickListener listener = new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(Category category) {
+                int position = categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category);
+                if (position >= 0){
+                    categoryinput.setText(categoriesViewModel.giveName(position));
+                }
+            }
+        };
+
         CategoryAdapter.OnItemLongClickListener longlistener = new CategoryAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClicked(Category category) {
@@ -83,7 +98,7 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         };
 
-        cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout, longlistener);
+        cAdapter = new CategoryAdapter(this, null, R.layout.category_single_layout, listener, longlistener);
         rvCategories.setAdapter(cAdapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -113,10 +128,11 @@ public class CategoriesActivity extends AppCompatActivity {
                 if (categoryinput.getText().toString().isEmpty())
                     Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
 
+                //else if()
+
                 else{
                     Category category_to_add = new Category(categoryinput.getText().toString());
                     categoriesViewModel.add(category_to_add);
-
                 }
             }
         });
