@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.circleimageview)
     implementation(project(":MODEL"))
     implementation(project(":VIEWMODEL"))
     testImplementation(libs.junit)
