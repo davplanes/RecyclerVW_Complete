@@ -81,7 +81,9 @@ public class CategoriesActivity extends AppCompatActivity {
         CategoryAdapter.OnItemClickListener listener = new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(Category category) {
-                int position = categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category);
+                inputCL.setVisibility(View.VISIBLE);
+                categoriesViewModel.setEditableCategoryIndex(categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category));
+                int position = categoriesViewModel.getEditableCategoryIndex();
                 if (position >= 0){
                     categoryinput.setText(categoriesViewModel.giveName(position));
                 }
@@ -141,12 +143,19 @@ public class CategoriesActivity extends AppCompatActivity {
                 if (categoryinput.getText().toString().isEmpty())
                     Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
 
-                //else if()
-
                 else{
-                    Category category_to_add = new Category(categoryinput.getText().toString());
-                    categoriesViewModel.add(category_to_add);
+                    Category new_category = new Category(categoryinput.getText().toString());
+
+                    if(categoriesViewModel.getIseditingLivedata().getValue()){
+                        categoriesViewModel.change(new_category);
+                    }
+                    else{
+                        categoriesViewModel.add(new_category);
+                    }
                 }
+
+                categoryinput.setText("");
+                inputCL.setVisibility(View.GONE);
             }
         });
 

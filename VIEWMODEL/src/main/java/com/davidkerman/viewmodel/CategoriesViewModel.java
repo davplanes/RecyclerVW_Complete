@@ -8,6 +8,7 @@ import com.example.model.Category;
 
 public class CategoriesViewModel extends ViewModel {
     private Categories categories;
+    private int   editableCategoryIndex;
     private MutableLiveData<Categories> categoriesMutableLiveData;
     private MutableLiveData<Boolean> successLivedata;
     private MutableLiveData<Boolean> iseditingLivedata;
@@ -21,7 +22,7 @@ public class CategoriesViewModel extends ViewModel {
 
         successLivedata = new MutableLiveData<>();
 
-        iseditingLivedata = new MutableLiveData<>();
+        iseditingLivedata = new MutableLiveData<>(false);
     }
 
     public MutableLiveData<Categories> getCategoriesMutableLiveData() {
@@ -34,6 +35,14 @@ public class CategoriesViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIseditingLivedata() {
         return iseditingLivedata;
+    }
+
+    public int getEditableCategoryIndex() {
+        return editableCategoryIndex;
+    }
+
+    public void setEditableCategoryIndex(int editableCategory) {
+        this.editableCategoryIndex = editableCategory;
     }
 
     public void add(Category categoryToAdd) {
@@ -58,5 +67,11 @@ public class CategoriesViewModel extends ViewModel {
             return categories.get(position).getName();
         }
         return "";
+    }
+
+    public void change(Category newCategory) {
+        categories.set(editableCategoryIndex, newCategory);
+        categoriesMutableLiveData.setValue(categories);
+        iseditingLivedata.setValue(false);
     }
 }
