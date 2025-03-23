@@ -21,7 +21,7 @@ public class CategoriesViewModel extends ViewModel {
 
         successLivedata = new MutableLiveData<>();
 
-        iseditingLivedata = new MutableLiveData<>(false);
+        iseditingLivedata = new MutableLiveData<>();
     }
 
     public MutableLiveData<Categories> getCategoriesMutableLiveData() {

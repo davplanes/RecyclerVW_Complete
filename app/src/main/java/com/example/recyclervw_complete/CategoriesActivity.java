@@ -1,5 +1,6 @@
 package com.example.recyclervw_complete;
 
+import android.content.DialogInterface;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.davidkerman.viewmodel.CategoriesViewModel;
 import com.example.model.Categories;
 import com.example.model.Category;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -89,12 +91,23 @@ public class CategoriesActivity extends AppCompatActivity {
         CategoryAdapter.OnItemLongClickListener longlistener = new CategoryAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClicked(Category category) {
-                int position = categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category);
-                if (position >= 0){
-                    categoriesViewModel.delete(position);
-                    return true;
-                }
-                return false;
+                new MaterialAlertDialogBuilder(CategoriesActivity.this)
+                        .setTitle("Toy Categories")
+                        .setMessage("Remove the category")
+                        .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = categoriesViewModel.getCategoriesMutableLiveData().getValue().indexOf(category);
+                                if (position >= 0){
+                                    categoriesViewModel.delete(position);
+                                }
+                            }
+                        })
+                        .setNeutralButton("Cancel", null)
+                        .setCancelable(true)
+                        .show();
+
+                return true;
             }
         };
 
