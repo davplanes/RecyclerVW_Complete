@@ -2,12 +2,12 @@ package com.example.model;
 
 public class Categories extends BaseList<Category, Categories>{
     public void getAll() {
-        add(new Category("Puzzles"));
-        add(new Category("Board Games"));
-        add(new Category("Card Games"));
-        add(new Category("Legos"));
-        add(new Category("Action figures"));
-        add(new Category("Pokemons"));
+        add(new Category("Puzzles", "P1"));
+        add(new Category("Board Games", "BG1"));
+        add(new Category("Card Games", "CG1"));
+        add(new Category("Legos", "L1"));
+        add(new Category("Action figures", "AF1"));
+        add(new Category("Pokemons", "P2"));
     }
 
     public boolean IsIn(Category category){

@@ -26,6 +26,8 @@ import com.example.model.Category;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Random;
+
 public class CategoriesActivity extends AppCompatActivity {
 
     private RecyclerView         rvCategories;
@@ -144,7 +146,7 @@ public class CategoriesActivity extends AppCompatActivity {
                     Toast.makeText(CategoriesActivity.this, "Please enter the category that you want to add", Toast.LENGTH_SHORT).show();
 
                 else{
-                    Category new_category = new Category(categoryinput.getText().toString());
+                    Category new_category = new Category(categoryinput.getText().toString(), String.valueOf(new Random().nextInt(10000)));
 
                     if(categoriesViewModel.getIseditingLivedata().getValue()){
                         categoriesViewModel.change(new_category);

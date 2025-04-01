@@ -5,8 +5,10 @@ import java.util.Objects;
 public class Category extends BaseEntity{
     private String name;
 
-    public Category(String name){
+    public Category(String name, String idFs)
+    {
         this.name = name;
+        this.idFs = idFs;
     }
 
     public String getName() {

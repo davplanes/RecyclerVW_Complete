@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerCategories"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
@@ -75,7 +75,7 @@
         android:textColorHint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategories" />
 
     <EditText
         android:id="@+id/dateinput"
