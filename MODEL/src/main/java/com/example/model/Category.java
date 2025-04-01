@@ -28,4 +28,7 @@ public class Category extends BaseEntity{
         return Objects.equals(name, category.name);
     }
 
+    public String toString(){
+        return name;
+    }
 }
